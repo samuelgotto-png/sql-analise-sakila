@@ -28,10 +28,10 @@ Realizar consultas SQL para analisar a relação entre atores, filmes e categori
 
 ## Tecnologias utilizadas
 
-SQL
-MySQL
-MySQL Workbench
-Análises realizadas
+- SQL
+- MySQL
+- MySQL Workbench
+- Análises realizadas
 
 ## Listagem de atores
 ## Atores com maior número de filmes
