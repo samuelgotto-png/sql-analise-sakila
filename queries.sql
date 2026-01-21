@@ -1,24 +1,32 @@
--- Projeto SQL - Análise de Atores por Categoria de Filme
--- Base de dados: Sakila (MySQL)
+-- Projeto: Análise de Dados com SQL 
+-- Base: Sakile
+-- Autor: Samuel Otto
 
--- Objetivo:
--- Relacionar atores, filmes e categorias 
--- para entender em quais tipos de filmes cada ator atua
+-- 1 listagem de atores
+USE sakila;
+
+SELECT * 
+FROM actor;
+
+-- 2 atores com maior número de filmes 
+SELECT 
+	a.first_name,
+    a.last_name,
+    COUNT(fa.film_id) 
+		AS total_film
+FROM actor a 
+JOIN film_actor fa 
+	ON a.actor_id = fa.actor_id
+GROUP BY a.actor_id, a.first_name, a.last_name
+ORDER BY total_film DESC;
+
+-- 3 Quantidade de filmes por categoria
 
 SELECT
-    act.actor_id,
-    act.first_name,
-    act.last_name,
-    cat.category_id,
-    cat.name AS category_name,
-    fa.film_id
-FROM actor act
-JOIN film_actor fa
-  ON act.actor_id = fa.actor_id
-JOIN film f 
-  ON fa.film_id = fa.actor_id
-JOIN film_category fc
-  ON f.fil_id = fc.film_id
-JOIN category cat
-  ON fc.category_id = cat.category_id
-ORDER BY act.first_name, cat.name;
+  c.name AS categoria,
+  COUNT(f.film_id) AS total_filmes
+FROM category c
+JOIN film_category fc ON c.category_id = fc.category_id
+JOIN film f ON fc.film_id = f.film_id
+GROUP BY c.name
+ORDER BY total_filmes DESC;
